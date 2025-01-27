@@ -1,22 +1,29 @@
 {
-  "welcome_message": "Welcome to the Databricks Kedro Bundle. For detailed information on project generation, see the README at https://github.com/jenspederm/databricks-kedro-bundle.",
-  "min_databricks_cli_version": "v0.212.2",
+  "welcome_message": "This template creates a Databricks Asset Bundle for UV. For more information, please visit https://github.com/JenspederM/dab-uv",
+  "min_databricks_cli_version": "v0.218.0",
   "properties": {
     "project_name": {
       "order": 1,
       "type": "string",
-      "default": "uv project",
+      "default": "uv-project",
       "pattern": "^[^.\\\\/A-Z]{3,}$",
       "pattern_match_failure_message": "Project name must be at least 3 characters long and cannot contain the following characters: \"\\\", \"/\", \" \", \".\", and must be all lowercase letters.",
-      "description": "\nProject Name. Default"
+      "description": "\nProject Name."
     },
-    "project_slug": {
+    "minimum_python_version": {
       "order": 2,
       "type": "string",
+      "default": "3.9",
+      "pattern": "^\\d+\\.\\d+$",
+      "pattern_match_failure_message": "Version must be in the format 'X.Y' where X and Y are numbers.",
+      "description": "\nMinimum supported Python version. 3.9 is the default."
+    },
+    "project_slug": {
+      "order": 3,
+      "type": "string",
       "default": "{{ ((regexp `[- ]`).ReplaceAllString .project_name `_`) -}}",
-      "description": "\nProject slug. Default",
-      "hidden": true
+      "description": "\nProject slug. Default is a slugified version of the project name."
     }
   },
-  "success_message": "\n*** Kedro Asset Bundle created in '{{.project_name}}' directory! ***\n\nPlease refer to the README.md for further instructions on getting started."
+  "success_message": "\nSuccessfully created Databricks Asset Bundle for UV."
 }

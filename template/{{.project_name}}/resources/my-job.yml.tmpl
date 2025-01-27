@@ -1,0 +1,19 @@
+resources:
+  jobs:
+    my-job:
+      name: my-job
+      job_clusters:
+        - job_cluster_key: default
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: Standard_DS3_v2
+            num_workers: 1
+      tasks:
+        - task_key: my-task
+          job_cluster_key: default
+          libraries:
+            - whl: "../dist/*.whl"
+          python_wheel_task:
+            package_name: {{.project_slug}}
+            entry_point: {{.project_slug}}
+            parameters: []
