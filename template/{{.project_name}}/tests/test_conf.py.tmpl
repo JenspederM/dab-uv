@@ -1,0 +1,24 @@
+TABLE = "test_table"
+ROWS = [
+    (1, "Alice"),
+    (2, "Bob"),
+    (3, "Charlie"),
+]
+COLS = ["id", "name"]
+
+
+def test_spark(spark):
+    assert spark is not None
+
+
+def test_write(spark):
+    spark.createDataFrame(ROWS, COLS).write.saveAsTable(TABLE)
+
+
+def test_read(spark):
+    df = spark.read.table(TABLE)
+    assert df.columns == COLS
+    read_rows = sorted([row.asDict() for row in df.collect()], key=lambda x: x["id"])
+    act_rows = sorted([dict(zip(COLS, row)) for row in ROWS], key=lambda x: x["id"])
+    assert len(read_rows) == 3
+    assert read_rows == act_rows

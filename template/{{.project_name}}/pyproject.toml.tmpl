@@ -3,9 +3,12 @@ name = "{{.project_slug}}"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [{ name = "Jens Peder Meldgaard", email = "{{user_name}}" }]
+authors = [{ email = "{{user_name}}" }]
 requires-python = ">={{.minimum_python_version}}"
-dependencies = []
+dependencies = [
+    "delta-spark>=3.3.0",
+    "pyspark>=3.5.4",
+]
 
 [project.scripts]
 {{.project_slug}} = "{{.project_slug}}:main"
@@ -16,6 +19,10 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.3.4",
-    "pytest-cov>=6.0.0",
+  "pytest>=8.3.4",
+  "pytest-cov>=6.0.0",
+  "ruff>=0.9.3",
 ]
+
+[tool.pytest.ini_options]
+addopts = "--cov-report=term --cov-report=xml:coverage.xml --cov={{ .project_slug }} -ra -vv"
