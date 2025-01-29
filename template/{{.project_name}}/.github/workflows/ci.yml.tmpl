@@ -20,6 +20,6 @@ jobs:
       workflow_name: "my-job"
       databricks_cli_version: "0.225.0"
       uv_version: "latest"
-      databricks_host: ${{ vars.DATABRCKS_HOST }}
+      databricks_host: {{ ${{ vars.DATABRCKS_HOST }} }}
     secrets:
       DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
