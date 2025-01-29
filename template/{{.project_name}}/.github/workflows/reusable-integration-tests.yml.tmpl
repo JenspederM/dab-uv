@@ -9,6 +9,10 @@ on:
       workflow_name:
         required: true
         type: string
+      destroy:
+        required: false
+        type: boolean
+        default: true
       databricks_cli_version:
         required: false
         type: string
@@ -49,9 +53,10 @@ jobs:
           DATABRICKS_HOST: {{ "${{ inputs.databricks_host }}" }}
           DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
         run: |
-          databricks bundle run my-job
+          databricks bundle run {{ "${{ inputs.workflow_name }}" }}
 
       - name: Destroy Bundle
+        if: ${{ inputs.destroy }}
         env:
           DATABRICKS_HOST: {{ "${{ inputs.databricks_host }}" }}
           DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
