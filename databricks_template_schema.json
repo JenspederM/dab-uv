@@ -13,13 +13,19 @@
     "minimum_python_version": {
       "order": 2,
       "type": "string",
-      "default": "3.9",
+      "default": "3.10",
       "pattern": "^\\d+\\.\\d+$",
       "pattern_match_failure_message": "Version must be in the format 'X.Y' where X and Y are numbers.",
-      "description": "\nMinimum supported Python version. 3.9 is the default."
+      "description": "\nMinimum supported Python version. 3.10 is the default (and lowest supported version by databricks-connect)."
+    },
+    "line_length": {
+      "order": 3,
+      "type": "integer",
+      "default": 88,
+      "description": "\nMaximum line length for black formatting. Default is 88."
     },
     "project_slug": {
-      "order": 3,
+      "order": 4,
       "type": "string",
       "default": "{{ ((regexp `[- ]`).ReplaceAllString .project_name `_`) -}}",
       "description": "\nProject slug. Default is a slugified version of the project name."
