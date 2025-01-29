@@ -1,5 +1,5 @@
 {
-  "welcome_message": "This template creates a Databricks Asset Bundle for UV. For more information, please visit https://github.com/JenspederM/dab-uv",
+  "welcome_message": "This template creates a Databricks Asset Bundle for UV.\nFor more information, please visit https://github.com/JenspederM/dab-uv\n---\n",
   "min_databricks_cli_version": "v0.218.0",
   "properties": {
     "project_name": {
@@ -31,5 +31,5 @@
       "description": "\nProject slug. Default is a slugified version of the project name."
     }
   },
-  "success_message": "\nSuccessfully created Databricks Asset Bundle for UV.\n\nTo use the CI pipeline, you must set the following values in your CI/CD environment:\n- `vars.DATABRICKS_HOST`\n- `secrets.DATABRICKS_TOKEN`\n."
+  "success_message": "\nSuccessfully created Databricks Asset Bundle for UV.\n\nTo use the CI pipeline, you must set the following values in your CI environment:\n- `vars.DATABRICKS_HOST`\n- `secrets.DATABRICKS_TOKEN`"
 }
