@@ -16,13 +16,13 @@
       "default": "3.10",
       "pattern": "^\\d+\\.\\d+$",
       "pattern_match_failure_message": "Version must be in the format 'X.Y' where X and Y are numbers.",
-      "description": "\nMinimum supported Python version. 3.10 is the default (and lowest supported version by databricks-connect)."
+      "description": "\nMinimum supported Python version (3.10 is lowest supported version by databricks-connect)."
     },
     "line_length": {
       "order": 3,
       "type": "integer",
       "default": 88,
-      "description": "\nMaximum line length for black formatting. Default is 88."
+      "description": "\nMaximum line length."
     },
     "project_slug": {
       "order": 4,
