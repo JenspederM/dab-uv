@@ -4,42 +4,24 @@ on:
   pull_request:
     branches:
       - main
+
+env:
+  WORKFLOW_NAME: "my-job"
+  UV_VERSION: "latest"
+  DATABRICKS_CLI_VERSION: "latest"
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  unit_tests:
+    uses: ./.github/workflows/reusable-unit-tests.yml
+    with:
+      uv_version: {{ "${{ env.UV_VERSION }}" }}
 
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: databricks/setup-cli@main
-        with:
-          version: 0.221.1
-
-      - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v4
-        with:
-          version: "latest"
-
-      - name: Run tests
-        run: uv run pytest
-
-      - name: Deploy Bundle
-        env:
-          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
-          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
-        run: |
-          databricks bundle deploy
-
-      - name: Run test job
-        env:
-          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
-          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
-        run: |
-          databricks bundle run my-job
-
-      - name: Destroy Bundle
-        env:
-          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
-          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
-        run: |
-          databricks bundle destroy --auto-approve
+  integration_tests:
+    uses: ./.github/workflows/reusable-integration-tests.yml
+    with:
+      workflow_name: {{ "${{ env.WORKFLOW_NAME }}" }}
+      databricks_cli_version: {{ "${{ env.DATABRICKS_CLI_VERSION }}" }}
+      uv_version: {{ "${{ env.UV_VERSION }}" }}
+    secrets:
+      DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+      DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}

@@ -1,0 +1,58 @@
+name: Integration Tests
+
+on:
+  workflow_call:
+    inputs:
+      workflow_name:
+        required: true
+        type: string
+      databricks_cli_version:
+        required: false
+        type: string
+        default: "latest"
+      uv_version:
+        required: false
+        type: string
+        default: "latest"
+    secrets:
+      DATABRICKS_HOST:
+        required: true
+      DATABRICKS_TOKEN:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: databricks/setup-cli@main
+        with:
+          version: {{ "${{ inputs.databricks_cli_version }}" }}
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: {{ "${{ inputs.uv_version }}" }}
+
+      - name: Deploy Bundle
+        env:
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
+        run: |
+          databricks bundle deploy
+
+      - name: Run test job
+        env:
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
+        run: |
+          databricks bundle run my-job
+
+      - name: Destroy Bundle
+        env:
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
+        run: |
+          databricks bundle destroy --auto-approve
