@@ -48,7 +48,8 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          echo "TODO: Run test job"
+          echo "I don't want to run the test job"
+          # databricks bundle run my-job
 
       - name: Destroy Bundle
         working-directory: ${{ steps.template.outputs.work_dir }}
@@ -56,4 +57,4 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          databricks bundle destroy
+          databricks bundle destroy --auto-approve
