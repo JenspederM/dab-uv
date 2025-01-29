@@ -1,27 +1,25 @@
 name: Continuous Integration
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
-
-env:
-  WORKFLOW_NAME: "my-job"
-  UV_VERSION: "latest"
-  DATABRICKS_CLI_VERSION: "latest"
 
 jobs:
   unit_tests:
     uses: ./.github/workflows/reusable-unit-tests.yml
     with:
-      uv_version: {{ "${{ env.UV_VERSION }}" }}
+      uv_version: "latest"
 
   integration_tests:
     uses: ./.github/workflows/reusable-integration-tests.yml
     with:
-      workflow_name: {{ "${{ env.WORKFLOW_NAME }}" }}
-      databricks_cli_version: {{ "${{ env.DATABRICKS_CLI_VERSION }}" }}
-      uv_version: {{ "${{ env.UV_VERSION }}" }}
+      workflow_name: "my-job"
+      databricks_cli_version: "0.225.0"
+      uv_version: "latest"
     secrets:
       DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
       DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
