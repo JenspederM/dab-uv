@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: databricks/setup-cli@main
+        with:
+          version: 0.221.1
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Use Template
+        id: template
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle init . --config-file .test_values.json
+          PROJECT_NAME=$(jq -r '.project_name' .test_values.json)
+          echo "work_dir=$(pwd)/$PROJECT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Run tests
+        working-directory: ${{ steps.template.outputs.work_dir }}
+        run: uv run pytest
+
+      - name: Deploy Bundle
+        working-directory: ${{ steps.template.outputs.work_dir }}
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle deploy
