@@ -48,8 +48,7 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          echo "I don't want to run the test job"
-          # databricks bundle run my-job
+          echo "Would run: databricks bundle run my-job"
 
       - name: Destroy Bundle
         working-directory: ${{ steps.template.outputs.work_dir }}
