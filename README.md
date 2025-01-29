@@ -12,12 +12,14 @@ To get started, follow the instructions below.
 
 ### Prerequisites
 
-- [Databricks CLI](https://docs.databricks.com/dev-tools/cli/index.html)
+Before installing the template, you must have the following installed:
 
+- [Databricks CLI](https://docs.databricks.com/en/dev-tools/cli/install.html)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) 
 
 ### Installation
 
-First you must configure [authentication](https://docs.databricks.com/en/dev-tools/bundles/index.html#authentication) with the Databricks CLI. Then you can initialize a new project using the template as follows:
+Before you can use the template, you must configure [authentication](https://docs.databricks.com/en/dev-tools/bundles/index.html#authentication) with the Databricks CLI. Then you can initialize a new project using the template as follows:
 
 ```
 # Initialize a new project using the template
@@ -29,7 +31,7 @@ cd <project-name>
 # Deploy the bundle
 databricks bundle deploy
 
-# Run the jobs (defined in <project-name>/resources)
+# Run the template job (defined in <project-name>/resources)
 databricks bundle run my-job
 
 # Destroy the bundle
