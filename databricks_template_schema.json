@@ -1,5 +1,5 @@
 {
-  "welcome_message": "This template creates a Databricks Asset Bundle for UV.\nFor more information, please visit https://github.com/JenspederM/dab-uv\n",
+  "welcome_message": "Databricks Asset Bundle for UV.\n\nFor more information, please visit https://github.com/JenspederM/dab-uv\n",
   "min_databricks_cli_version": "v0.218.0",
   "properties": {
     "project_name": {
