@@ -25,21 +25,21 @@ jobs:
 
       - name: Deploy Bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
         run: |
           databricks bundle deploy
 
       - name: Run test job
         env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
         run: |
           databricks bundle run my-job
 
       - name: Destroy Bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_HOST: {{ "${{ secrets.DATABRICKS_HOST }}" }}
+          DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
         run: |
           databricks bundle destroy --auto-approve
