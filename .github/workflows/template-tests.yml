@@ -1,15 +1,9 @@
-name: CI
+name: Template Tests
 
 on:
-  push:
-    branches:
-      - master
-      - main
   pull_request:
     branches:
-      - master
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,3 +41,19 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           databricks bundle deploy
+      # TODO: Add a step to run the test job
+      - name: Run test job
+        working-directory: ${{ steps.template.outputs.work_dir }}
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          echo "TODO: Run test job"
+
+      - name: Destroy Bundle
+        working-directory: ${{ steps.template.outputs.work_dir }}
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle destroy
