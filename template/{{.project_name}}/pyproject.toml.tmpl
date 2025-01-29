@@ -26,3 +26,6 @@ dev = [
 
 [tool.pytest.ini_options]
 addopts = "--cov-report=term --cov-report=xml:coverage.xml --cov={{ .project_slug }} -ra -vv"
+
+[tool.ruff]
+line-length = {{.line_length}}

@@ -1,0 +1,30 @@
+name: Unit Tests
+
+on:
+  workflow_call:
+    inputs:
+      uv_version:
+        required: false
+        type: string
+        default: "latest"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: {{ "${{ inputs.uv_version }}" }}
+
+      - name: Lint
+        run: uv run ruff check
+
+      - name: Format
+        run: uv run ruff format --check
+
+      - name: Run tests
+        run: uv run pytest

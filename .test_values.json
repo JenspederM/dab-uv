@@ -1,0 +1,6 @@
+{
+  "project_name": "uv-project",
+  "minimum_python_version": "3.10",
+  "line_length": 88,
+  "project_slug": "uv_project"
+}

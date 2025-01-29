@@ -8,6 +8,7 @@ from pathlib import Path
 from delta import configure_spark_with_delta_pip
 from pyspark.sql import SparkSession
 
+
 @pytest.fixture(scope="session")
 def spark():
     """Create a spark session for testing.
@@ -18,7 +19,6 @@ def spark():
     uv add pyspark delta-spark
     ```
     """
-
 
     app_name = "{{ .project_slug }}-testing"
     warehouse_location = Path(__file__).parent / ".spark_warehouse"
@@ -47,6 +47,7 @@ def spark():
     spark = configure_spark_with_delta_pip(spark_session_conf).getOrCreate()
     yield spark
     spark.stop()
+
 
 def cleanup(warehouse_location: str | Path, metastore_path: str | Path):
     shutil.rmtree(warehouse_location)

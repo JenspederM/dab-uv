@@ -1,0 +1,26 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit_tests:
+    uses: ./.github/workflows/reusable-unit-tests.yml
+    with:
+      uv_version: "latest"
+
+  integration_tests:
+    uses: ./.github/workflows/reusable-integration-tests.yml
+    with:
+      workflow_name: "my-job"
+      databricks_cli_version: "0.225.0"
+      uv_version: "latest"
+      databricks_host: {{ "${{ vars.DATABRCKS_HOST }}" }}
+      destroy: true # Set to false to keep the bundle after the test
+    secrets:
+      DATABRICKS_TOKEN: {{ "${{ secrets.DATABRICKS_TOKEN }}" }}
