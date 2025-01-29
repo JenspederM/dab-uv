@@ -48,6 +48,7 @@ def spark():
     yield spark
     spark.stop()
 
+
 def cleanup(warehouse_location: str | Path, metastore_path: str | Path):
     shutil.rmtree(warehouse_location)
     shutil.rmtree(metastore_path)
