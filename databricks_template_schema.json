@@ -1,5 +1,5 @@
 {
-  "welcome_message": "This template creates a Databricks Asset Bundle for UV. For more information, please visit https://github.com/JenspederM/dab-uv",
+  "welcome_message": "Databricks Asset Bundle for UV.\n\nFor more information, please visit https://github.com/JenspederM/dab-uv\n",
   "min_databricks_cli_version": "v0.218.0",
   "properties": {
     "project_name": {
@@ -16,13 +16,13 @@
       "default": "3.10",
       "pattern": "^\\d+\\.\\d+$",
       "pattern_match_failure_message": "Version must be in the format 'X.Y' where X and Y are numbers.",
-      "description": "\nMinimum supported Python version. 3.10 is the default (and lowest supported version by databricks-connect)."
+      "description": "\nMinimum supported Python version (3.10 is lowest supported version by databricks-connect)."
     },
     "line_length": {
       "order": 3,
       "type": "integer",
       "default": 88,
-      "description": "\nMaximum line length for black formatting. Default is 88."
+      "description": "\nMaximum line length."
     },
     "project_slug": {
       "order": 4,
@@ -31,5 +31,5 @@
       "description": "\nProject slug. Default is a slugified version of the project name."
     }
   },
-  "success_message": "\nSuccessfully created Databricks Asset Bundle for UV."
+  "success_message": "---\nSuccessfully created Databricks Asset Bundle for UV.\n\nTo use the CI pipeline, you must set the following values in your CI environment:\n- `vars.DATABRICKS_HOST`\n- `secrets.DATABRICKS_TOKEN`"
 }
