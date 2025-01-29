@@ -1,0 +1,21 @@
+services:
+  databricks:
+    build:
+      args:
+        UBUNTU_VERSION: "24.04"
+        ASDF_VERSION: "0.15.0"
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      - ..:/workspace:cached
+  local:
+    build:
+      args:
+        UBUNTU_VERSION: "24.04"
+        ASDF_VERSION: "0.15.0"
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      - ..:/workspace:cached
