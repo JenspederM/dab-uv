@@ -1,6 +1,9 @@
 name: Template Tests
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -39,9 +42,10 @@ jobs:
           databricks bundle deploy
 
       - name: Run test job
+        if: github.event_name != 'pull_request'
         working-directory: ${{ steps.template.outputs.work_dir }}
         run: |
-          echo "Would run: databricks bundle run my-job"
+          databricks bundle run my-job
 
       - name: Destroy Bundle
         working-directory: ${{ steps.template.outputs.work_dir }}
