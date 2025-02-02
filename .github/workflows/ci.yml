@@ -1,10 +1,12 @@
-name: Template Integration Tests
+name: Template Tests
 
 on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
 jobs:
   build:
     env:
@@ -41,6 +43,7 @@ jobs:
 
       - name: Run test job
         working-directory: ${{ steps.template.outputs.work_dir }}
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
           databricks bundle run my-job
 
